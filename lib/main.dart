@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //留学生関係のコード
 
     //留学生関係のコード
-    List original = []; //被害者の方達の番号
+    List original = []; //移動される方たちの番号
     List edited = []; //引越される方達のindex
 
     original.add(seki[12]);
