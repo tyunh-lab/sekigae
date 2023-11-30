@@ -46,35 +46,38 @@ class _MyHomePageState extends State<MyHomePage> {
       seki.add(i);
     }
     seki.shuffle();
-    //留学生関係のコード
 
-    //留学生関係のコード
-    List original = []; //移動される方たちの番号
-    List edited = []; //引越される方達のindex
+    //留学生考慮するとき
+    if (considerOverseasStudent) {
+      //留学生関係のコード
+      List original = []; //移動される方たちの番号
+      List edited = []; //引越される方達のindex
 
-    original.add(seki[12]);
-    original.add(seki[13]);
-    original.add(seki[14]);
-    original.add(seki[15]);
-    original.add(seki[16]);
+      original.add(seki[12]);
+      original.add(seki[13]);
+      original.add(seki[14]);
+      original.add(seki[15]);
+      original.add(seki[16]);
 
-    edited.add(seki.indexOf(13));
-    edited.add(seki.indexOf(23));
-    edited.add(seki.indexOf(43));
-    edited.add(seki.indexOf(39));
-    edited.add(seki.indexOf(4));
+      edited.add(seki.indexOf(13));
+      edited.add(seki.indexOf(23));
+      edited.add(seki.indexOf(43));
+      edited.add(seki.indexOf(39));
+      edited.add(seki.indexOf(4));
 
-    seki[12] = seki[edited[0]];
-    seki[13] = seki[edited[1]];
-    seki[14] = seki[edited[2]];
-    seki[15] = seki[edited[3]];
-    seki[16] = seki[edited[4]];
+      seki[12] = seki[edited[0]];
+      seki[13] = seki[edited[1]];
+      seki[14] = seki[edited[2]];
+      seki[15] = seki[edited[3]];
+      seki[16] = seki[edited[4]];
 
-    seki[edited[0]] = original[0];
-    seki[edited[1]] = original[1];
-    seki[edited[2]] = original[2];
-    seki[edited[3]] = original[3];
-    seki[edited[4]] = original[4];
+      seki[edited[0]] = original[0];
+      seki[edited[1]] = original[1];
+      seki[edited[2]] = original[2];
+      seki[edited[3]] = original[3];
+      seki[edited[4]] = original[4];
+    }
+    //ここまで
 
     setState(() {
       seki;
@@ -143,13 +146,26 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  bool considerOverseasStudent = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('席替え'),
+        title: Row(children: [
+          const Spacer(),
+          const Text('席替え'),
+          const Spacer(),
+          Switch(
+              value: considerOverseasStudent,
+              onChanged: (c) {
+                setState(() {
+                  considerOverseasStudent = c;
+                });
+              })
+        ]),
       ),
       body: Center(
         child: Column(
